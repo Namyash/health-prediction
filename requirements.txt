@@ -3,3 +3,6 @@ streamlit-option-menu
 numpy
 joblib
 pandas
+sklearn
+matplotlib
+seaborn
