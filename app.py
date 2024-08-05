@@ -57,7 +57,7 @@ def main():
                 with row1[0]:
                     age = st.number_input('Age', value=50.0)
                 with row1[1]:
-                    sex = st.selectbox('Sex', [0.0, 1.0])
+                    sex = st.selectbox('Sex', ['Female', 'Male'])
                 with row1[2]:
                     cp = st.number_input('Chest Pain Type', value=1.0)
                 with row1[3]:
@@ -67,7 +67,7 @@ def main():
                 with row2[0]:
                     chol = st.number_input('Cholesterol', value=200.0)
                 with row2[1]:
-                    fbs = st.selectbox('Fasting Blood Sugar', [0.0, 1.0])
+                    fbs = st.selectbox('Fasting Blood Sugar', ['No', 'Yes'])
                 with row2[2]:
                     restecg = st.number_input('Rest ECG', value=0.0)
                 with row2[3]:
