@@ -76,7 +76,7 @@ def main():
                 row3 = st.columns(4)
                 with row3[0]:
                     exng = st.selectbox('Exercise Induced Angina', ['No', 'Yes'])
-                    exng = 1 if exercise_induced_angina == "Yes" else 0
+                    exng = 1 if exng == "Yes" else 0
                 with row3[1]:
                     oldpeak = st.number_input('Oldpeak', value=1.0)
                 with row3[2]:
