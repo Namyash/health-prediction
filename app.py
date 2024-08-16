@@ -138,22 +138,35 @@ def main():
                 row1 = st.columns(4)
                 with row1[0]:
                     age = st.number_input('Age', value=50.0)
-                    yellow_fingers = st.selectbox('Yellow Fingers', [0, 1])
-                    peer_pressure = st.selectbox('Peer Pressure', [0, 1])
-                    fatigue = st.selectbox('Fatigue', [0, 1])
+                    yellow_fingers = st.selectbox('Yellow Fingers', ['No', 'Yes'])
+                    yellow_fingers = 1 if yellow_fingers == 'Yes' else 0
+                    peer_pressure = st.selectbox('Peer Pressure', ['No', 'Yes'])
+                    peer_pressure = 1 if peer_pressure == 'Yes' else 0
+                    fatigue = st.selectbox('Fatigue', ['No', 'Yes'])
+                    fatigue = 1 if fatigue == 'Yes' else 0
                 with row1[1]:
-                    wheezing = st.selectbox('Wheezing', [0, 1])
-                    coughing = st.selectbox('Coughing', [0, 1])
-                    swallowing_difficulty = st.selectbox('Swallowing Difficulty', [0, 1])
-                    smoking = st.selectbox('Smoking', [0, 1])
+                    wheezing = st.selectbox('Wheezing', ['No', 'Yes'])
+                    wheezing = 1 if wheezing == 'Yes' else 0
+                    coughing = st.selectbox('Coughing', ['No', 'Yes'])
+                    coughing = 1 if coughing == 'Yes' else 0
+                    swallowing_difficulty = st.selectbox('Swallowing Difficulty', ['No', 'Yes'])
+                    swallowing_difficulty = 1 if swallowing_difficulty == 'Yes' else 0
+                    smoking = st.selectbox('Smoking', ['No', 'Yes'])
+                    smoking = 1 if smoking == 'Yes' else 0
                 with row1[2]:
-                    anxiety = st.selectbox('Anxiety', [0, 1])
-                    chronic_disease = st.selectbox('Chronic Disease', [0, 1])
-                    allergy = st.selectbox('Allergy', [0, 1])
-                    alcohol_consuming = st.selectbox('Alcohol Consuming', [0, 1])
+                    anxiety = st.selectbox('Anxiety', ['No', 'Yes'])
+                    anxiety = 1 if anxiety == 'Yes' else 0
+                    chronic_disease = st.selectbox('Chronic Disease', ['No', 'Yes'])
+                    chronic_disease = 1 if chronic_disease == 'Yes' else 0
+                    allergy = st.selectbox('Allergy', ['No', 'Yes'])
+                    allergy = 1 if allergy == 'Yes' else 0
+                    alcohol_consuming = st.selectbox('Alcohol Consuming', ['No', 'Yes'])
+                    alcohol_consuming = 1 if alcohol_consuming == 'Yes' else 0
                 with row1[3]:
-                    shortness_of_breath = st.selectbox('Shortness of Breath', [0, 1])
-                    chest_pain = st.selectbox('Chest Pain', [0, 1])
+                    shortness_of_breath = st.selectbox('Shortness of Breath', ['No', 'Yes'])
+                    shortness_of_breath = 1 if shortness_of_breath == 'Yes' else 0
+                    chest_pain = st.selectbox('Chest Pain', ['No', 'Yes'])
+                    chest_pain = 1 if chest_pain == 'Yes' else 0
             input_data = np.array([age, smoking, yellow_fingers, anxiety, peer_pressure, chronic_disease, fatigue, allergy, wheezing, alcohol_consuming, coughing, shortness_of_breath, swallowing_difficulty, chest_pain]).reshape(1, -1)
             try:
                 input_data_scaled = lung_scaler_input.transform(input_data)
