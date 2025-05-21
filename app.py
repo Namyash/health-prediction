@@ -1,3 +1,4 @@
+
 import streamlit as st
 from streamlit_option_menu import option_menu
 import numpy as np
@@ -7,10 +8,12 @@ import joblib
 lungmodel = joblib.load('logistic_regression_lung_model.pkl')
 heartmodel = joblib.load('neural_network_heart_model.pkl')
 dbmodel = joblib.load('random_forest_diabetes_model.pkl')
+# kidneymodel = joblib.load('logistic_regression_kidney_model.pkl')  # Updated to LogisticRegression
 
 heart_scaler_input = joblib.load('heart_scaler.pkl')
 lung_scaler_input = joblib.load('lung_scaler.pkl')
 db_scaler_input = joblib.load('db_scaler.pkl')
+# kidney_scaler_input = joblib.load('kidney_scaler.pkl')
 
 def main():
     st.markdown(
@@ -55,32 +58,32 @@ def main():
                 
                 row1 = st.columns(4)
                 with row1[0]:
-                    age = st.number_input('Age', value=50.0)
+                    age = st.number_input('Age', value=50.0, min_value=0.0, max_value=120.0)
                 with row1[1]:
                     sex = st.selectbox('Sex', ['Female', 'Male'])
                     sex = 1 if sex == 'Male' else 0
                 with row1[2]:
-                    cp = st.number_input('Chest Pain Type', value=1.0)
+                    cp = st.number_input('Chest Pain Type', value=1.0, min_value=0.0, max_value=3.0)
                 with row1[3]:
-                    trtbps = st.number_input('Resting Blood Pressure', value=120.0)
+                    trtbps = st.number_input('Resting Blood Pressure', value=120.0, min_value=0.0)
                 
                 row2 = st.columns(4)
                 with row2[0]:
-                    chol = st.number_input('Cholesterol', value=200.0)
+                    chol = st.number_input('Cholesterol', value=200.0, min_value=0.0)
                 with row2[1]:
                     fbs = st.selectbox('Fasting Blood Sugar', ['No', 'Yes'])
                     fbs = 1 if fbs == "Yes" else 0
                 with row2[2]:
-                    restecg = st.number_input('Rest ECG', value=0.0)
+                    restecg = st.number_input('Rest ECG', value=0.0, min_value=0.0, max_value=2.0)
                 with row2[3]:
-                    thalachh = st.number_input('Max. HeartRate Achieved', value=150.0)
+                    thalachh = st.number_input('Max. Heart Rate Achieved', value=150.0, min_value=0.0)
                 
                 row3 = st.columns(4)
                 with row3[0]:
                     exng = st.selectbox('Exercise Induced Angina', ['No', 'Yes'])
                     exng = 1 if exng == "Yes" else 0
                 with row3[1]:
-                    oldpeak = st.number_input('Oldpeak', value=1.0)
+                    oldpeak = st.number_input('Oldpeak', value=1.0, min_value=0.0)
                 with row3[2]:
                     slp = st.selectbox('SLP', [0.0, 1.0, 2.0])
                 with row3[3]:
@@ -89,7 +92,8 @@ def main():
                 row4 = st.columns(4)
                 with row4[0]:
                     thall = st.selectbox('Thalassemia', [0.0, 1.0, 2.0, 3.0])
-            input_data = np.array([age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall]).reshape(1, -1)
+            
+            input_data = np.ascontiguousarray([age, sex, cp, trtbps, chol, fbs, restecg, thalachh, exng, oldpeak, slp, caa, thall]).reshape(1, -1)
             try:
                 input_data_scaled = heart_scaler_input.transform(input_data)
             except Exception as e:
@@ -137,7 +141,7 @@ def main():
                 st.subheader("Patient Information")
                 row1 = st.columns(4)
                 with row1[0]:
-                    age = st.number_input('Age', value=50.0)
+                    age = st.number_input('Age', value=50.0, min_value=0.0, max_value=120.0)
                     yellow_fingers = st.selectbox('Yellow Fingers', ['No', 'Yes'])
                     yellow_fingers = 1 if yellow_fingers == 'Yes' else 0
                     peer_pressure = st.selectbox('Peer Pressure', ['No', 'Yes'])
@@ -167,7 +171,8 @@ def main():
                     shortness_of_breath = 1 if shortness_of_breath == 'Yes' else 0
                     chest_pain = st.selectbox('Chest Pain', ['No', 'Yes'])
                     chest_pain = 1 if chest_pain == 'Yes' else 0
-            input_data = np.array([age, smoking, yellow_fingers, anxiety, peer_pressure, chronic_disease, fatigue, allergy, wheezing, alcohol_consuming, coughing, shortness_of_breath, swallowing_difficulty, chest_pain]).reshape(1, -1)
+            
+            input_data = np.ascontiguousarray([age, smoking, yellow_fingers, anxiety, peer_pressure, chronic_disease, fatigue, allergy, wheezing, alcohol_consuming, coughing, shortness_of_breath, swallowing_difficulty, chest_pain]).reshape(1, -1)
             try:
                 input_data_scaled = lung_scaler_input.transform(input_data)
             except Exception as e:
@@ -214,16 +219,17 @@ def main():
                 st.subheader("Patient Information")
                 row1 = st.columns(4)
                 with row1[0]:
-                    pregnancies = st.number_input('Pregnancies', value=0)
-                    glucose = st.number_input('Glucose', value=100)
-                    skin_thickness = st.number_input('Skin Thickness', value=20)
-                    bmi = st.number_input('BMI', value=25.0)
+                    pregnancies = st.number_input('Pregnancies', value=0, min_value=0)
+                    glucose = st.number_input('Glucose', value=100, min_value=0)
+                    skin_thickness = st.number_input('Skin Thickness', value=20, min_value=0)
+                    bmi = st.number_input('BMI', value=25.0, min_value=0.0)
                 with row1[1]:
-                    blood_pressure = st.number_input('Blood Pressure', value=70)
-                    insulin = st.number_input('Insulin', value=79)
-                    diabetes_pedigree_function = st.number_input('Diabetes Pedigree Function', value=0.5)
-                    age = st.number_input('Age', value=33)
-                input_data = np.array([pregnancies, glucose, blood_pressure, skin_thickness, insulin, bmi, diabetes_pedigree_function, age]).reshape(1, -1)
+                    blood_pressure = st.number_input('Blood Pressure', value=70, min_value=0)
+                    insulin = st.number_input('Insulin', value=79, min_value=0)
+                    diabetes_pedigree_function = st.number_input('Diabetes Pedigree Function', value=0.5, min_value=0.0)
+                    age = st.number_input('Age', value=33, min_value=0)
+            
+            input_data = np.ascontiguousarray([pregnancies, glucose, blood_pressure, skin_thickness, insulin, bmi, diabetes_pedigree_function, age]).reshape(1, -1)
             try:
                 input_data_scaled = db_scaler_input.transform(input_data)
             except Exception as e:
